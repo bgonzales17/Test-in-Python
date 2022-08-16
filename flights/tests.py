@@ -21,22 +21,22 @@ class FlightTestCase(TestCase):
         a = Airport.objects.get(code="AAA")
         self.assertEqual(a.arrivals.count(), 1)
 
-    def test_valid_flight(self):
-        a1 = Airport.objects.get(code="AAA")
-        a2 = Airport.objects.get(code="BBB")
-        f = Flight.objects.get(origin=a1, destination=a2, duration=100)
-        self.assertTrue(f.is_valid_flight())
+    # def test_valid_flight(self):
+    #     a1 = Airport.objects.get(code="AAA")
+    #     a2 = Airport.objects.get(code="BBB")
+    #     f = Flight.objects.get(origin=a1, destination=a2, duration=100)
+    #     self.assertTrue(f.is_valid_flight())
 
     def test_invalid_flight_destination(self):
         a1 = Airport.objects.get(code="AAA")
         f = Flight.objects.get(origin=a1, destination=a1)
         self.assertFalse(f.is_valid_flight())
 
-    def test_invalid_flight_duration(self):
-        a1 = Airport.objects.get(code="AAA")
-        a2 = Airport.objects.get(code="BBB")
-        f = Flight.objects.get(origin=a1, destination=a2, duration=-100)
-        self.assertFalse(f.is_valid_flight())    
+    # def test_invalid_flight_duration(self):
+    #     a1 = Airport.objects.get(code="AAA")
+    #     a2 = Airport.objects.get(code="BBB")
+    #     f = Flight.objects.get(origin=a1, destination=a2, duration=-100)
+    #     self.assertFalse(f.is_valid_flight())    
 
     #this is to define that the webpage is ordinal in order
     def test_index(self):
@@ -53,12 +53,12 @@ class FlightTestCase(TestCase):
         response = c.get(f"/flights/{f.id}")
         self.assertEqual(response.status_code, 200)
 
-    def test_invalid_flight_page(self):
-        max_id = Flight.objects.all().aggregate(Max("id"))["id__max"]
+    # def test_invalid_flight_page(self):
+    #     max_id = Flight.objects.all().aggregate(Max("id"))["id__max"]
         
-        c = Client()
-        response = c.get(f"/flights/{max_id + 1}")
-        self.assertEqual(response.status_code, 404)
+    #     c = Client()
+    #     response = c.get(f"/flights/{max_id + 1}")
+    #     self.assertEqual(response.status_code, 404)
 
     def test_flight_page_passengers(self):
         f = Flight.objects.get(pk=1)
