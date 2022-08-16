@@ -26,7 +26,10 @@ jobs:
       - uses: actions/checkout@v3
 
       # Runs a single command using the runners shell
-      - name: Run django test
+      - name: install django
         run: 
-          pip3 install --user django
-          python3 manage.py test
+          pip install --user django
+      
+      - name: install django
+        run: 
+          python manage.py test
